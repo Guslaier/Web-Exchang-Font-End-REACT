@@ -1,75 +1,48 @@
 // src/types/transaction.ts
+import { TranStatus, TranType, MovementType } from './entities';
 
-export type TransactionType = 'BUY' | 'SELL'; // อ้างอิงจาก exchange_transactions.type
-export type TransactionStatus = 'COMPLETED' | 'PENDING' | 'VOIDED'; // อ้างอิงจาก Database default
+export interface TransactionBase {
+  transaction_no: string; // Primary Key
+  shift_id: number;
+  type: string;
+}
 
-export interface Transaction {
-  transaction_no: string; // เปลี่ยนจาก id เป็น transaction_no ตาม Primary Key
-  shift_id: number;       // เพิ่มเพื่อให้ตรงกับความสัมพันธ์ใน DB
-  customer_id?: number;   // ความสัมพันธ์กับ Table customers
-  currency_name: string;  // ดึงจาก exchange_rates
-  type: TransactionType;
-  exchange_rate: number;  // เรท ณ ตอนทำรายการ
-  foreign_amount: number; // ยอดเงินต่างประเทศ
-  thai_baht_amount: number; // ยอดเงินบาทสุทธิ
-  status: TransactionStatus;
+export interface ExchangeTransaction extends TransactionBase {
+  customer_id?: number;
+  currency_name: string;
+  type: TranType;
+  exchange_rate: number;
+  foreign_amount: number;
+  calculation_method: 'BOARD' | 'SPECIAL';
+  thai_baht_amount: number;
+  status: TranStatus;
+  void_reason?: string;
+  voided_by?: number;
+  approved_by?: number;
   created_at: string;
 }
 
-// สำหรับข้อมูลที่ใช้แสดงในหน้าตาราง "Request Void Transaction"
+export interface TransferTransaction extends TransactionBase {
+  booth_id: number; // สาขาต้นทาง
+  currency_name: string;
+  amount: number;
+  type: MovementType; // IN หรือ OUT
+  ref_booth_id?: number; // สาขาปลายทาง (กรณีโอนระหว่างสาขา)
+  description?: string;
+  user_id: number;
+  status: TranStatus;
+  created_at: string;
+}
+
+// สำหรับ UI ตาราง Request Void
 export interface TransactionVoid {
-    id: string;
+    id: string; // ตรงกับ transaction_no
     booth: string;
     user: string;
     time: string;
     rate: number;
     currency_name: string;
-    type: 'SALE' | 'REFUND' | 'VOID';
+    type: 'SALE' | 'REFUND' | 'VOID' | string;
     amount: number;
-    status: 'PENDING' | 'COMPLETED' | 'VOIDED';
+    status: TranStatus;
 }
-
-// สำหรับการรับค่าจากหน้าจอ (Entry Form)
-export interface TransactionEntry {
-  shift_id: number;
-  currency_name: string;
-  type: TransactionType;
-  foreign_amount: number;
-  calculation_method: 'BOARD' | 'SPECIAL'; // ตาม Database note
-}
-
-// สำหรับส่งข้อมูลไป Void รายการ
-export interface VoidRequest {
-  transaction_no: string;
-  void_reason: string;
-  voided_by: number;      // User ID ของคนที่กด Void
-}
-
-
-export interface ExchangeTransaction {
-  id: number;
-  shift_id: number;
-  customer_id?: number;
-  currency_name: string;
-  type: TransactionType;
-  exchange_rate: number;
-  foreign_amount: number;
-  thai_baht_amount: number;
-  status: TransactionStatus;
-  created_at: string;
-}
-
-export interface TransferTransaction {
-    transaction_no: string;
-  booth_id: number[];
-  currency_name: string;
-  amount: number;
-  type: 'TRANSFER' | 'RECEIVE';
-  ref_booth_id?: number;
-  ref_bank_account_id?: number;
-  description?: string;
-  user_id: number;
-  status: 'PENDING' | 'COMPLETED' | 'CANCELED';
-  created_at: string;
-}
-

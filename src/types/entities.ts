@@ -1,14 +1,30 @@
 // src/types/entities.ts
-export type UserRole = 'ADMIN' | 'MANAGER' | 'STAFF';
+
+// 🚩 เพิ่มส่วนนี้เข้าไปเพื่อให้ไฟล์อื่น (เช่น transaction.ts) ดึงไปใช้ได้
+export type UserRole = "ADMIN" | "MANAGER" | "STAFF";
+export type TranStatus = "COMPLETED" | "PENDING" | "VOIDED" | "CANCELED"; // อิงตาม Database
+export type TranType = "BUY" | "SELL";
+export type MovementType = "IN" | "OUT"; // สำหรับการโอนเงินระหว่างสาขา
+
 export interface User {
   id: number;
   username: string;
+  name: string; // ชื่อ-นามสกุลจริง
   email: string;
-  name: string;
   phone_number: string;
-  role: UserRole; // อิงจาก user_role ใน DB
+  role: UserRole;
   is_active: boolean;
   created_at: string;
+}
+
+export interface Booth {
+  id: number;
+  name: string;
+  location: string;
+  current_user_id: number | null;
+  is_active: boolean;
+  is_open: boolean; // เพิ่มเพื่อใช้ในหน้า UI
+  crated_at: string;
 }
 
 export interface Shift {
@@ -23,13 +39,6 @@ export interface Shift {
   balance: number;
   balance_check: number;
   cash_advance: number;
-}
-
-export interface Currency {
-  code: string; // USD, EUR
-  name: string;
-  symbol: string;
-  buyRate: number;
-  sellRate: number;
-  is_active: boolean;
+  created_at: string;
+  updated_at: string;
 }

@@ -5,7 +5,7 @@
   gap: 1rem;
   width: 100%;
   min-height: content;
-  max-height: 300px; /* กำหนดความสูงขั้นต่ำให้กับ grid */
+  max-height: 250px; /* กำหนดความสูงขั้นต่ำให้กับ grid */
   overflow-y: scroll;
   padding: 0.5rem;
 }

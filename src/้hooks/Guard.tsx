@@ -19,7 +19,7 @@ const MainGuard = ({ allowedRoles }: GuardProps) => {
   }
 
   // 🔍 Hook 2: เช็คสิทธิ์ (Role Check) - ถ้ามีการระบุบทบาทที่อนุญาต
-  if (allowedRoles && !allowedRoles.includes(userRole || 'STAFF')) {
+  if (allowedRoles && !allowedRoles.includes(userRole!)) {
     // ถ้าสิทธิ์ไม่ถึง ให้เด้งไปหน้าแรก (Dashboard)
     return <Navigate to={Path.DASHBOARD} replace />;
   }

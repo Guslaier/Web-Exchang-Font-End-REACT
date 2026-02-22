@@ -2,7 +2,7 @@
 import React from 'react';
 import './BoothGrid.css';
 import { Link } from 'react-router';
-import type { Booth } from '../../../types/booth';  
+import type { Booth } from '../../../types/entities';  
 
 const BoothGrid: React.FC<{ booths: Booth[] }> = ({ booths }) => {
   return (

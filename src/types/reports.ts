@@ -2,7 +2,7 @@
 
 export interface CashflowReport {
   shift_id: number;
-  denomination: string; // แบงค์ 1000, 500, 100
+  denomination: string; // แบงค์ 1000, 500
   quantity: number;
 }
 
@@ -18,9 +18,11 @@ export interface StockReport {
 
 export interface Customer {
   id: number;
-  passport_image_url: string;
+  passport_image_url: string; // สำคัญมาก
   passport_no: string;
   full_name: string;
   nationality: string;
   phone_number: string;
+  hotel_name?: string;
+  room_number?: string;
 }
