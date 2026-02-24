@@ -127,7 +127,7 @@ export const mockExchangeRates: ExchangeRate[] = [
 ];
 
 export const MockExclusiveRates: ExclusiveExchangeRate[] = [
-  { exchange_rate_id: 1, formula_buy: null, formula_buy_max: null, buy_rate: 34.55, buy_rate_max: 34.75, booth_id: 1, updated_at: '2026-02-24T10:30:00Z' },
-  { exchange_rate_id: 2, formula_buy: null, formula_buy_max: null, buy_rate: 34.55, buy_rate_max: 34.75, booth_id: 1, updated_at: '2026-02-24T10:30:00Z' },
-  { exchange_rate_id: 3, formula_buy: null, formula_buy_max: null, buy_rate: 34.55, buy_rate_max: 34.75, booth_id: 1, updated_at: '2026-02-24T10:30:00Z' }
+  { exchange_rate_id: 1, formula_buy: null, formula_buy_max: null, buy_rate: 34.55, buy_rate_max: 34.75, booth_id: 1, is_active: true, updated_at: '2026-02-24T10:30:00Z' },
+  { exchange_rate_id: 2, formula_buy: null, formula_buy_max: null, buy_rate: 34.55, buy_rate_max: 34.75, booth_id: 1, is_active: true, updated_at: '2026-02-24T10:30:00Z' },
+  { exchange_rate_id: 3, formula_buy: null, formula_buy_max: null, buy_rate: 34.55, buy_rate_max: 34.75, booth_id: 1, is_active: true, updated_at: '2026-02-24T10:30:00Z' }
 ];

@@ -74,5 +74,6 @@ export interface ExclusiveExchangeRate {
   buy_rate: number;
   buy_rate_max: number;
   booth_id: number;
+  is_active : boolean; // เผื่อมีแก้ภายหลัง
   updated_at: string;
 }
