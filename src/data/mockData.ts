@@ -98,7 +98,7 @@ export const mockAdminAuth: AuthResponse = {
   }
 };
 
-export const MOCK_CURRENCIES: Currency[] = [
+export const mockCURRENCIES: Currency[] = [
   {
     code: 'USD',
     name: 'US Dollar',
