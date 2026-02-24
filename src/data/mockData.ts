@@ -1,6 +1,7 @@
 import type { AuthResponse } from "../types/auth.ts";
 import type { Booth } from "../types/entities.ts";
 import type { User } from "../types/entities.ts";
+import type { Currency } from "../types/entities.ts";
 import type { TransactionVoid } from "../types/transaction.ts";
 
 
@@ -96,3 +97,86 @@ export const mockAdminAuth: AuthResponse = {
     created_at: "2025-12-01T00:00:00Z"
   }
 };
+
+export const MOCK_CURRENCIES: Currency[] = [
+  {
+    code: 'USD',
+    name: 'US Dollar',
+    symbol: '$',
+    buyRate: 34.55,
+    sellRate: 35.10,
+    is_active: true
+  },
+  {
+    code: 'EUR',
+    name: 'Euro',
+    symbol: '€',
+    buyRate: 37.20,
+    sellRate: 38.05,
+    is_active: true
+  },
+  {
+    code: 'JPY',
+    name: 'Japanese Yen',
+    symbol: '¥',
+    buyRate: 0.2315,
+    sellRate: 0.2380,
+    is_active: true
+  },
+  {
+    code: 'GBP',
+    name: 'British Pound',
+    symbol: '£',
+    buyRate: 43.85,
+    sellRate: 44.60,
+    is_active: true
+  },
+  {
+    code: 'AUD',
+    name: 'Australian Dollar',
+    symbol: 'A$',
+    buyRate: 22.45,
+    sellRate: 23.15,
+    is_active: true
+  },
+  {
+    code: 'CHF',
+    name: 'Swiss Franc',
+    symbol: 'CHF',
+    buyRate: 39.15,
+    sellRate: 40.05,
+    is_active: true
+  },
+  {
+    code: 'CNY',
+    name: 'Chinese Yuan',
+    symbol: '¥',
+    buyRate: 4.75,
+    sellRate: 4.90,
+    is_active: true
+  },
+  {
+    code: 'SGD',
+    name: 'Singapore Dollar',
+    symbol: 'S$',
+    buyRate: 25.65,
+    sellRate: 26.30,
+    is_active: true
+  },
+  {
+    code: 'HKD',
+    name: 'Hong Kong Dollar',
+    symbol: 'HK$',
+    buyRate: 4.40,
+    sellRate: 4.55,
+    is_active: true
+  },
+  {
+    code: 'KRW',
+    name: 'Korean Won',
+    symbol: '₩',
+    buyRate: 0.0255,
+    sellRate: 0.0275,
+    is_active: false
+  }
+];

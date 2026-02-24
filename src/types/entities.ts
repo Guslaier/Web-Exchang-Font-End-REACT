@@ -42,3 +42,13 @@ export interface Shift {
   created_at: string;
   updated_at: string;
 }
+
+
+export interface Currency {
+  code: string;
+  name: string;
+  symbol: string;
+  buyRate: number;
+  sellRate: number;
+  is_active: boolean;
+}
