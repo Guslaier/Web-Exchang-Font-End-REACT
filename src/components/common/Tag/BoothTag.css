@@ -1,0 +1,13 @@
+.booth-tag-container {
+  display: inline-block;
+  padding: 5px;
+}
+
+.booth-tag-text {
+  color: #335599; 
+  font-family: 'Arial', sans-serif;
+  font-weight: bold;
+  font-size: 32px; 
+  letter-spacing: -1px;
+  line-height: 1;
+}
