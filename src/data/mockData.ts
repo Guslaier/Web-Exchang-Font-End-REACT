@@ -1,6 +1,7 @@
 import type { AuthResponse } from "../types/auth.ts";
 import type { Booth } from "../types/entities.ts";
 import type { User } from "../types/entities.ts";
+import type { Shift } from "../types/entities.ts";
 import type { Currency } from "../types/entities.ts";
 import type { ExchangeRate } from "../types/entities.ts";
 import type { ExclusiveExchangeRate } from "../types/entities.ts";
@@ -130,4 +131,11 @@ export const MockExclusiveRates: ExclusiveExchangeRate[] = [
   { exchange_rate_id: 1, formula_buy: null, formula_buy_max: null, buy_rate: 34.55, buy_rate_max: 34.75, booth_id: 1, is_active: true, updated_at: '2026-02-24T10:30:00Z' },
   { exchange_rate_id: 2, formula_buy: null, formula_buy_max: null, buy_rate: 34.55, buy_rate_max: 34.75, booth_id: 1, is_active: true, updated_at: '2026-02-24T10:30:00Z' },
   { exchange_rate_id: 3, formula_buy: null, formula_buy_max: null, buy_rate: 34.55, buy_rate_max: 34.75, booth_id: 1, is_active: true, updated_at: '2026-02-24T10:30:00Z' }
+];
+
+export const mockShifts: Shift[] = [
+  { id: 198, user_id: 101, booth_id: 1, date_shift: "2026-02-20", shift_start: "2026-02-20T08:00:00Z", shift_end: "2026-02-20T17:00:00Z", total_receive: 45000, total_exchange: 40000, balance: 5000, balance_check: 5000, cash_advance: 5000, created_at: "2026-02-20T08:00:00Z", updated_at: "2026-02-20T17:05:00Z" },
+  { id: 199, user_id: 101, booth_id: 1, date_shift: "2026-02-21", shift_start: "2026-02-21T08:00:00Z", shift_end: "2026-02-21T17:00:00Z", total_receive: 55000, total_exchange: 35000, balance: 20000, balance_check: 20000, cash_advance: 5000, created_at: "2026-02-21T08:00:00Z", updated_at: "2026-02-21T17:10:00Z" },
+  { id: 201, user_id: 101, booth_id: 1, date_shift: "2026-02-22", shift_start: "2026-02-22T08:00:00Z", shift_end: undefined, total_receive: 50000, total_exchange: 30000, balance: 20000, balance_check: 20000, cash_advance: 5000, created_at: "2026-02-22T08:00:00Z", updated_at: "2026-02-22T12:00:00Z" },
+  { id: 202, user_id: 102, booth_id: 2, date_shift: "2026-02-22", shift_start: "2026-02-22T08:30:00Z", shift_end: undefined, total_receive: 60000, total_exchange: 25000, balance: 35000, balance_check: 35000, cash_advance: 10000, created_at: "2026-02-22T08:30:00Z", updated_at: "2026-02-22T12:00:00Z" }
 ];
