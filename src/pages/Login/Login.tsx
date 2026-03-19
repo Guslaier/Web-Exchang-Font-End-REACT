@@ -14,7 +14,7 @@ const Login: React.FC = () => {
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const res = await login({ username, password });// 🚩 เรียกฟังก์ชันจัดการข้อมูล
+      const res = await login({ email: username, password });// 🚩 เรียกฟังก์ชันจัดการข้อมูล
       res
         navigate('/'); // 🚩 สั่งเปลี่ยนหน้าเมื่อสำเร็จ
         window.location.reload(); // เพื่อให้ App.tsx โหลดสถานะใหม่จาก storage
@@ -72,7 +72,7 @@ const handleLoginAdmin = async () => {
       </form>
       <div style={{display: 'flex', gap: '10px', marginTop: '20px'}}>
         <Button label="Admin" variant="submit" onClick={handleLoginAdmin} />
-        <Button label="Staff" variant="submit" onClick={handleLoginStaff} />
+        <Button label="Employee" variant="submit" onClick={handleLoginStaff} />
       </div>
     </div>
   );

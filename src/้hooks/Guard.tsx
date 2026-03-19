@@ -6,6 +6,8 @@ import type { UserRole } from '../types/entities';
 interface GuardProps {
   allowedRoles?: UserRole[]; // ตัวเลือกสำหรับระบุบทบาทที่อนุญาตเข้าถึง
 }
+
+// MainGuard เป็นคอมโพเนนต์ที่ใช้สำหรับป้องกันการเข้าถึงหน้าเว็บตามเงื่อนไขการ Login และสิทธิ์ของผู้ใช้
 const MainGuard = ({ allowedRoles }: GuardProps) => {
   const location = useLocation();
   
@@ -15,7 +17,7 @@ const MainGuard = ({ allowedRoles }: GuardProps) => {
 
   // ถ้ายังไม่ได้ Login ให้ไปหน้า Login
   if (!token) {
-    return <Navigate to={Path.LOGON} state={{ from: location }} replace />;
+    return <Navigate to={Path.LOGIN} state={{ from: location }} replace />;
   }
 
   // 🔍 Hook 2: เช็คสิทธิ์ (Role Check) - ถ้ามีการระบุบทบาทที่อนุญาต

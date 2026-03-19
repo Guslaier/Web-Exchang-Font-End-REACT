@@ -20,7 +20,7 @@ export const Path = {
   TRANSACTION_ENTRY: `${basePath}transaction-entry`,
   LOGOUT: `${basePath}logout`,
   LOGOUT_CLOSESHIFT: `${basePath}logout-closeshift`,
-  LOGON: `${basePath}login`,
+  LOGIN: `${basePath}login`,
 } as const;
 
 export const menus: IMenu[] = [
@@ -31,11 +31,11 @@ export const menus: IMenu[] = [
   { title: 'Manage User', path: Path.MANAGE_USER, roles: ['MANAGER'] },
   { title: 'Edit Rate', path: Path.EDIT_RATE, roles: ['MANAGER'] },
   { title: 'Report & Audit', path: Path.REPORT, roles: ['MANAGER'] },
-  { title: 'Record Trading', path: Path.RECORD_TRADING, roles: ['STAFF'] },
-  { title: 'Transaction  Entry', path: Path.TRANSACTION_ENTRY, roles: ['STAFF'] },
+  { title: 'Record Trading', path: Path.RECORD_TRADING, roles: ['EMPLOYEE'] },
+  { title: 'Transaction  Entry', path: Path.TRANSACTION_ENTRY, roles: ['EMPLOYEE'] },
 ];
 
 export const menusLogout: IMenu[] = [
   { title: 'Logout', path: Path.LOGOUT, roles: ['MANAGER'] },
-  { title: 'Logout and Closeshift', path: Path.LOGOUT_CLOSESHIFT, roles: ['STAFF'] },
+  { title: 'Logout and Closeshift', path: Path.LOGOUT_CLOSESHIFT, roles: ['EMPLOYEE'] },
 ];
