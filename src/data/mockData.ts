@@ -1,6 +1,10 @@
 import type { AuthResponse } from "../types/auth.ts";
 import type { Booth } from "../types/entities.ts";
 import type { User } from "../types/entities.ts";
+import type { Shift } from "../types/entities.ts";
+import type { Currency } from "../types/entities.ts";
+import type { ExchangeRate } from "../types/entities.ts";
+import type { ExclusiveExchangeRate } from "../types/entities.ts";
 import type { TransactionVoid } from "../types/transaction.ts";
 
 
@@ -13,7 +17,7 @@ import type { TransactionVoid } from "../types/transaction.ts";
 //     is_open: boolean; // เพิ่มเพื่อใช้ในหน้า UI
 //     crated_at: string;
 // }
-export const mockBooths:Booth[] = [
+export const mockBooths: Booth[] = [
   { id: 1, name: '7-11', location: 'Floor 1, Zone A', current_user_id: 1, is_active: true, is_open: true, crated_at: new Date().toISOString() },
   { id: 2, name: 'Lotus', location: 'Floor 1, Zone B', current_user_id: null, is_active: true, is_open: false, crated_at: new Date().toISOString() },
   { id: 3, name: 'Siam', location: 'Floor 2, Zone A', current_user_id: 2, is_active: true, is_open: true, crated_at: new Date().toISOString() },
@@ -96,3 +100,42 @@ export const mockAdminAuth: AuthResponse = {
     created_at: "2025-12-01T00:00:00Z"
   }
 };
+
+export const mockCurrencies: Currency[] = [
+  { code: 'USD', name: 'US Dollar', symbol: '$', buyRate: 34.55, sellRate: 35.10, is_active: true },
+  { code: 'EUR', name: 'Euro', symbol: '€', buyRate: 37.20, sellRate: 38.05, is_active: true },
+  { code: 'JPY', name: 'Japanese Yen', symbol: '¥', buyRate: 0.2315, sellRate: 0.2380, is_active: true },
+  { code: 'GBP', name: 'British Pound', symbol: '£', buyRate: 43.85, sellRate: 44.60, is_active: true },
+  { code: 'AUD', name: 'Australian Dollar', symbol: 'A$', buyRate: 22.45, sellRate: 23.15, is_active: true },
+  { code: 'CHF', name: 'Swiss Franc', symbol: 'CHF', buyRate: 39.15, sellRate: 40.05, is_active: true },
+  { code: 'CNY', name: 'Chinese Yuan', symbol: '¥', buyRate: 4.75, sellRate: 4.90, is_active: true },
+  { code: 'SGD', name: 'Singapore Dollar', symbol: 'S$', buyRate: 25.65, sellRate: 26.30, is_active: true },
+  { code: 'HKD', name: 'Hong Kong Dollar', symbol: 'HK$', buyRate: 4.40, sellRate: 4.55, is_active: true },
+  { code: 'KRW', name: 'Korean Won', symbol: '₩', buyRate: 0.0255, sellRate: 0.0275, is_active: false }
+];
+
+export const mockExchangeRates: ExchangeRate[] = [
+  { id: 1, currency_code: 'USD', name: 'USD (L) 50-100', range_start: 50, range_stop: 100, formula_buy: null, formula_sell: null, buy_rate: 34.55, sell_rate: 35.10, is_active: true, updated_at: '2026-02-24T10:00:00Z' },
+  { id: 2, currency_code: 'USD', name: 'USD (M) 10-20', range_start: 10, range_stop: 20, formula_buy: null, formula_sell: null, buy_rate: 34.55, sell_rate: 35.10, is_active: true, updated_at: '2026-02-24T10:00:00Z' },
+  { id: 3, currency_code: 'USD', name: 'USD (S) 1-5', range_start: 1, range_stop: 5, formula_buy: null, formula_sell: null, buy_rate: 34.55, sell_rate: 35.10, is_active: true, updated_at: '2026-02-24T10:00:00Z' },
+  { id: 4, currency_code: 'CNY', name: 'CNY (L) 100', range_start: 100, range_stop: 100, formula_buy: null, formula_sell: null, buy_rate: 4.75, sell_rate: 4.90, is_active: true, updated_at: '2026-02-24T10:05:00Z' },
+  { id: 5, currency_code: 'CNY', name: 'CNY (M) 50', range_start: 50, range_stop: 50, formula_buy: null, formula_sell: null, buy_rate: 4.75, sell_rate: 4.90, is_active: true, updated_at: '2026-02-24T10:05:00Z' },
+  { id: 6, currency_code: 'CNY', name: 'CNY (S) 1-20', range_start: 1, range_stop: 20, formula_buy: null, formula_sell: null, buy_rate: 4.75, sell_rate: 4.90, is_active: true, updated_at: '2026-02-24T10:05:00Z' },
+  { id: 7, currency_code: 'EUR', name: 'EUR (All Notes)', range_start: 5, range_stop: 500, formula_buy: null, formula_sell: null, buy_rate: 37.20, sell_rate: 38.05, is_active: true, updated_at: '2026-02-24T10:10:00Z' },
+  { id: 8, currency_code: 'JPY', name: 'JPY (All Notes)', range_start: 1000, range_stop: 10000, formula_buy: null, formula_sell: null, buy_rate: 0.2315, sell_rate: 0.2380, is_active: true, updated_at: '2026-02-24T10:10:00Z' },
+  { id: 9, currency_code: 'GBP', name: 'GBP (All Notes)', range_start: 5, range_stop: 50, formula_buy: null, formula_sell: null, buy_rate: 43.85, sell_rate: 44.60, is_active: true, updated_at: '2026-02-24T10:10:00Z' },
+  { id: 10, currency_code: 'SGD', name: 'SGD (All Notes)', range_start: 2, range_stop: 1000, formula_buy: null, formula_sell: null, buy_rate: 25.65, sell_rate: 26.30, is_active: true, updated_at: '2026-02-24T10:10:00Z' }
+];
+
+export const MockExclusiveRates: ExclusiveExchangeRate[] = [
+  { exchange_rate_id: 1, formula_buy: null, formula_buy_max: null, buy_rate: 34.55, buy_rate_max: 34.75, booth_id: 1, is_active: true, updated_at: '2026-02-24T10:30:00Z' },
+  { exchange_rate_id: 2, formula_buy: null, formula_buy_max: null, buy_rate: 34.55, buy_rate_max: 34.75, booth_id: 1, is_active: true, updated_at: '2026-02-24T10:30:00Z' },
+  { exchange_rate_id: 3, formula_buy: null, formula_buy_max: null, buy_rate: 34.55, buy_rate_max: 34.75, booth_id: 1, is_active: true, updated_at: '2026-02-24T10:30:00Z' }
+];
+
+export const mockShifts: Shift[] = [
+  { id: 198, user_id: 101, booth_id: 1, date_shift: "2026-02-20", shift_start: "2026-02-20T08:00:00Z", shift_end: "2026-02-20T17:00:00Z", total_receive: 45000, total_exchange: 40000, balance: 5000, balance_check: 5000, cash_advance: 5000, created_at: "2026-02-20T08:00:00Z", updated_at: "2026-02-20T17:05:00Z" },
+  { id: 199, user_id: 101, booth_id: 1, date_shift: "2026-02-21", shift_start: "2026-02-21T08:00:00Z", shift_end: "2026-02-21T17:00:00Z", total_receive: 55000, total_exchange: 35000, balance: 20000, balance_check: 20000, cash_advance: 5000, created_at: "2026-02-21T08:00:00Z", updated_at: "2026-02-21T17:10:00Z" },
+  { id: 201, user_id: 101, booth_id: 1, date_shift: "2026-02-22", shift_start: "2026-02-22T08:00:00Z", shift_end: undefined, total_receive: 50000, total_exchange: 30000, balance: 20000, balance_check: 20000, cash_advance: 5000, created_at: "2026-02-22T08:00:00Z", updated_at: "2026-02-22T12:00:00Z" },
+  { id: 202, user_id: 102, booth_id: 2, date_shift: "2026-02-22", shift_start: "2026-02-22T08:30:00Z", shift_end: undefined, total_receive: 60000, total_exchange: 25000, balance: 35000, balance_check: 35000, cash_advance: 10000, created_at: "2026-02-22T08:30:00Z", updated_at: "2026-02-22T12:00:00Z" }
+];

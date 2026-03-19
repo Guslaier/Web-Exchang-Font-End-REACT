@@ -42,3 +42,38 @@ export interface Shift {
   created_at: string;
   updated_at: string;
 }
+
+
+export interface Currency {
+  code: string;
+  name: string;
+  symbol: string;
+  buyRate: number;
+  sellRate: number;
+  is_active: boolean;
+}
+
+export interface ExchangeRate {
+  id: number;
+  currency_code: string;
+  name: string;
+  range_start: number;
+  range_stop: number;
+  formula_buy?: any; // แก้เป็น String ทีหลัง
+  formula_sell?: any;  // แก้เป็น String ทีหลัง
+  buy_rate: number;
+  sell_rate: number;
+  is_active : boolean; // เผื่อมีแก้ภายหลัง
+  updated_at: string;
+}
+
+export interface ExclusiveExchangeRate {
+  exchange_rate_id: number;
+  formula_buy: any;
+  formula_buy_max: any;
+  buy_rate: number;
+  buy_rate_max: number;
+  booth_id: number;
+  is_active : boolean; // เผื่อมีแก้ภายหลัง
+  updated_at: string;
+}

@@ -45,3 +45,8 @@ export const loginAsStaff = async (): Promise<AuthResponse> => {
     return response;
 };
 
+
+export const getCurrentShiftId = (): number | null => {
+  return storage.get<number>("currentShiftId");
+};
+
