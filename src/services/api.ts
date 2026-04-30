@@ -26,30 +26,29 @@ api.interceptors.request.use(
 api.interceptors.response.use(
   (response) => response,
   async (error) => {
-    const originalRequest = error.config;
-
-    // ถ้า Token หมดอายุ (401) และยังไม่เคย retry
+    const originalRequest = error.config; // แสดงข้อความผิดพลาดจาก API
     if (error.response?.status === HTTP_STATUS.UNAUTHORIZED && !originalRequest._retry) {
       originalRequest._retry = true;
 
       try {
         const refreshToken = storage.get<string>(STORAGE_KEYS.REFRESH_TOKEN);
         if (refreshToken) {
-          // TODO: เรียก API refresh token ที่นี่
-          // const { data } = await api.post(API_ENDPOINTS.AUTH.REFRESH, { refreshToken });
-          // storage.set(STORAGE_KEYS.TOKEN, data.token);
-          // originalRequest.headers.Authorization = `Bearer ${data.token}`;
-          // return api(originalRequest);
+          // ส่วนของ Refresh Token Logic
+        } else {
+          // 🚩 กรณีไม่มี Refresh Token หรือ Session หมดอายุ
+          storage.clear(); // ล้างข้อมูลทั้งหมดใน Storage
+          alert('Session expired. Please log in again.');
+          // เปลี่ยนหน้าไปที่ Root (/)
+          // การใช้ href จะทำให้แอป Reload และกลับไปเช็ค Guard ใหม่ที่หน้าแรก
+          window.location.href = '/'; 
         }
       } catch (refreshError) {
-        // ถ้า refresh token ไม่สำเร็จ ให้ลบ token และ redirect ไป login
-        storage.remove(STORAGE_KEYS.TOKEN);
-        storage.remove(STORAGE_KEYS.REFRESH_TOKEN);
-        // TODO: redirect to login page
+        storage.clear();
+        alert('Session expired. Please log in again.');
+        window.location.href = '/';
         return Promise.reject(refreshError);
       }
     }
-
     return Promise.reject(error);
   }
 );

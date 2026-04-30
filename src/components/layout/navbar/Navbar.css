@@ -1,128 +1,253 @@
-
-.navbar{    
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    background-color: var(--primary-color);
-    color: var(--text-white);
-    width: var(--sidebar-width );
-    min-height: 100vh; /* ปรับความสูงให้เหมาะสมกับเนื้อหา */
-    padding: 1rem 1rem ;
-    transition: 0.6s;
-    position: sticky;
-    top: 0;
-    overflow-x: hidden;
-
+.navbar {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: var(--primary-color);
+  color: var(--text-white);
+  width: var(--sidebar-width);
+  min-height: 100vh; /* ปรับความสูงให้เหมาะสมกับเนื้อหา */
+  height: 100%;
+  position: -webkit-sticky;
+position: sticky;
+  z-index: 100;
+  top: 0; /* ปรับให้ติดขอบบนของหน้าจอ */
+  overflow-x: hidden;
+  flex-shrink: 0;
+ 
 }
+.border-b {
+  border-bottom-style: var(--tw-border-style);
+  border-bottom-width: var(--tw-border-width);
+  border-bottom-color: var(--tw-border-color);
+}
+
 .navbar .nav-logo {
-    display: flex;
-    flex-direction: column;
-    font-size: 1.8rem;
-    font-weight: bold;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  align-items: baseline; /* ให้ฐานตัวอักษรตรงกัน */
+  gap: 2px; /* ระยะห่างเล็กน้อยระหว่าง M กับ Exchang */
+  padding: 1rem;
 }
-.navbar .nav-logo span {
-    font-size: 3rem;
-    font-weight: bold;
-    color: #FFCC00;
+
+.navbar .nav-logo-container {
+  display: flex;
+  flex-direction: column; /* จัดเรียงในแนวนอน */
+  justify-content: flex-start; /* จัดชิดซ้าย */
+  align-items: baseline; /* ให้ฐานตัวอักษรตรงกัน */
+  gap: 0.1rem; /* ระยะห่างระหว่างโลโก้กับ Role */
 }
-.navbar .nav-logo div {
-    display: flex;
-    flex-wrap: wrap; /* 🚩 หัวใจสำคัญ: ยอมให้ตัวอักษรตกบรรทัด */
-    flex-direction: row;
-    width: 200px;    /* ความกว้างตอนกางออก (ปรับตามความยาวคำ) */
-    overflow: hidden;
+.navbar .nav-title {
+  display: flex;
+  align-items: baseline;
+  gap: calc(var(--font-size-base)*0.1);
 }
-.navbar .nav-logo div span {
-    color: white;
-    font-size: 2.3rem;
-    text-align: center;
-    font-weight: bold;
-    word-break: break-all; /* บังคับให้ตัดคำทุกตัวอักษร */
-    width: min-content; /* บีบความกว้างให้เท่ากับตัวอักษรเดียว */
+.navbar .nav-logo .role{
+    font-size: calc(var(--font-size-base) * 0.9); /* ขนาดเล็กลงเล็กน้อย */
+    color: var(--text-white);
+    opacity: 50%;
+    font-weight: 200;
 }
+.navbar .nav-logo .nav-logo-f {
+  display: flex;
+  font-size: calc(var(--font-size-base) * 2); /* ขนาดใหญ่เด่นตามแบบ */
+  font-weight: 800; /* หนาพิเศษ */
+  color: #ffcc00; /* สีเหลืองทอง */
+  line-height: 0.8; /* ดึงให้ชิดขอบบน-ล่าง */
+}
+
+.navbar .nav-logo .nav-logo-text {
+  display: flex;
+  font-size: calc(var(--font-size-base) * 1.5); /* ขนาดรองลงมา */
+  letter-spacing: calc(
+    var(--font-size-base) * 0.1
+  ); /* เพิ่มระยะห่างระหว่างตัวอักษร */
+  font-weight: 600;
+  color: #ffffff; /* สีขาวสะอาดตา */
+  line-height: 1;
+}
+
+.Berger {
+  display: none;
+  background: none;
+  color: var(--text-white);
+  border: none;
+  font-size: 1.5rem;
+  transform: none;
+  margin: auto 0;
+}
+
+.Berger div {
+  display: flex;
+}
+
 .nav-container {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
 }
 .navbar .nav-menu {
-    display: flex;
-    gap: 0.1rem;
-    flex-direction: column;
-    width: 100%;
+    flex: 1;
+  display: flex;;
+  gap: calc(var(--spacing)*1);
+  flex-direction: column;
+  width: 100%;
+  padding: calc(var(--spacing) * 4);
 }
 .navbar .nav-menu li {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  overflow: hidden;
+  width: 100%;
+}
+.navbar .nav-menu .link {
     display: flex;
-    list-style: none;
-    overflow: hidden;
-    width: 100%;
+    flex-direction: row;
+    align-items: center;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 100%;
+  color: var(--text-muted);
+  text-decoration: none;
+  padding: calc(var(--spacing)*2);
+  border-radius: var(--border-radius);
+  transition: background-color 0.3s;
+  gap: calc(var(--spacing)*1.2);
 }
-.navbar .nav-menu .link{
-    white-space: nowrap;
-    overflow: hidden;
-    width: 100%;
-    color: var(--text-white);
-    text-decoration: none;
-    padding: 0.5rem 1rem;
-    border-radius: var(--border-radius);
-    transition: background-color 0.3s;
+.navbar .nav-menu li .nav-icon-svg svg path {
+    stroke: currentColor !important; /* บังคับให้ใช้สีจาก color ของ class แม่ */
 }
+.navbar .nav-menu li .nav-icon-svg svg{ /* บังคับให้ใช้สีจาก color ของ class แม่ */
+  width: 100%;
+  height: 100%;
+  margin: 0;
+}
+.navbar .nav-menu li .nav-icon-svg{
+    display: flex;
+  color: var(--text-muted);
+  width: calc(var(--font-size-base)*2.3);
+  aspect-ratio: 1/1;
+}
+
 .navbar .nav-menu a:hover {
-    background-color: var(--primary-dark);
+  background-color: var(--primary-dark);
 }
 
 .navbar .nav-menu-bottom {
-    display: flex;
-    gap: 0.1rem;
-    flex-direction: row;
-    justify-content: space-between;
-    width: 100%;
-    margin-top: auto; /* ดันเมนูนี้ไปด้านล่าง */
+  display: flex;
+  gap: 0.1rem;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  padding: calc(var(--spacing) * 4);
 }
 .navbar .nav-menu-bottom li {
-    display: flex;
-    list-style: none;
-    justify-content: center;
-    align-items: center;
-
+   display: flex;
+  align-items: center;
+  list-style: none;
+  overflow: hidden;
+  width: 100%;
 }
-.navbar .nav-menu-bottom .link{
+.navbar .nav-menu-bottom .link {
+      display: flex;
+    flex-direction: row;
+    align-items: center;
+    white-space: nowrap;
+    overflow: hidden;
     width: 100%;
-    color: var(--text-white);
+    color: var(--text-muted);
     text-decoration: none;
+    padding: calc(var(--spacing) * 2);
     border-radius: var(--border-radius);
     transition: background-color 0.3s;
-    padding: 0.5rem 1rem;
+    gap: calc(var(--spacing) * 1.2);
 }
 .navbar .nav-menu-bottom a:hover {
-    background-color: var(--primary-dark);
+  background-color: var(--primary-dark);
 }
 
 .navbar .nav-menu-bottom button {
-    font-size: 2rem;
-    border: none;
-    color: var(--text-white);
-    padding: 0.5rem 1rem;
-    border-radius: var(--border-radius);
-    cursor: pointer;
-    background-color: transparent;
-    transition: background-color 0.3s;
-    padding: 0.2rem;
+  width: 100%;
+  color: var(--text-muted);
+  text-decoration: none;
+   gap: calc(var(--spacing)*1);
+  border-radius: var(--border-radius);
+  transition: background-color 0.3s;
+  padding: calc(var(--spacing)*3);
 }
 .navbar .nav-menu-bottom button:hover {
-    background-color: var(--primary-dark);
+  background-color: var(--primary-dark);
 }
-.navbar.active .nav-menu {
-    display: none;
-}
-.navbar.active .nav-menu-bottom li {
-    display: none;
-}
-.navbar.active{
-    display: flex;
-    width: 4.3rem;
-}
-.navbar.active .nav-logo div {
+
+@media screen and (max-width: 1024px) {
+  .navbar {
     width: 100%;
-    flex-direction: column;
+    min-height: 1px;
+    
+  }
+  .navbar .nav-logo .nav-logo-f {
+    font-size: calc(var(--font-size-base) * 1.5);
+  }
+
+  .navbar .nav-logo .nav-logo-text {
+    font-size: calc(var(--font-size-base) * 1);
+     letter-spacing: calc(
+    var(--font-size-base) * 0.05
+  );
+  }
+
+  .navbar .nav-logo .role{
+    font-size: calc(var(--font-size-base)* 0.5);
+  }
+
+  .navbar .nav-logo {
+    justify-content: space-between;
+  }
+  .navbar .nav-menu {
+    display: none;
+  }
+  .navbar .nav-menu-bottom {
+    display: none;
+  }
+  .Berger {
+    display: flex;
+  }
 }
+
+.navbar.active .nav-menu {
+  display: flex;
+}
+.navbar.active .nav-menu-bottom {
+  display: flex;
+}
+.navbar.active {
+  display: flex;
+}
+
+.navbar .nav-menu-bottom .signed {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: calc(var(--spacing)*0.5);
+  color: var(--text-muted);
+  padding-left: calc(var(--spacing)*4);
+}
+.navbar .nav-menu-bottom .t1 {
+  color: gray;
+  font-size: calc(var(--font-size-base)*0.9);
+}
+.navbar .nav-menu-bottom .t2 {
+  font-size: calc(var(--font-size-base)*0.8);
+  font-weight: 300;
+}
+.navbar .nav-menu-bottom .nav-icon-svg{
+  width: calc(var(--font-size-base)*2.3);
+  aspect-ratio: 1/1;
+  color: var(--text-muted);
+}
+
+
+

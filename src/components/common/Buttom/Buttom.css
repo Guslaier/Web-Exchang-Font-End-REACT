@@ -64,3 +64,16 @@
 .btn-open:hover {
     background-color: var(--btn-open-dark); /* สีเขียวเข้มขึ้นสำหรับ Hover */
 }
+
+.btn-add{
+    background-color: var(--btn-add);
+    color: var(--text-white);
+    border: none;
+    padding: 0.5rem 0.75rem;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-size: 16px;
+}
+.btn-add:hover {
+    background-color: var(--btn-add-dark); /* สีเขียวเข้มขึ้นสำหรับ Hover */
+}

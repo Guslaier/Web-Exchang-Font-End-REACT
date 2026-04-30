@@ -1,0 +1,27 @@
+.Pro-container{
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+.profile-card {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+  padding: 20px;
+  width: 100%;
+  margin-bottom: calc(var(--spacing) * 4);
+}
+.profile-card .profile-info {
+  margin-bottom: 20px;
+}
+.profile-card .info-row {
+  display: flex;
+  margin-bottom: 10px;
+}
+.profile-card .label {
+  font-weight: bold;
+  margin-right: 10px;
+}
+.profile-card .value {
+  color: #555;
+}

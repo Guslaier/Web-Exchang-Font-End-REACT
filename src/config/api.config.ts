@@ -6,106 +6,173 @@ export const API_CONFIG = {
 } as const;
 
 export const API_ENDPOINTS = {
+  // ========== AUTH ==========
   AUTH: {
     LOGIN: '/auth/login',
-    REGISTER: '/auth/register',
     LOGOUT: '/auth/logout',
-    REFRESH: '/auth/refresh',
   },
+
+  // ========== USER ==========
   USER: {
-    LIST: '/users',
-    PROFILE: '/user/profile',
-    CREATE: '/users',
-    DETAIL: (id: number) => `/users/${id}`,
-    UPDATE: (id: number) => `/users/${id}`,
-    DELETE: (id: number) => `/users/${id}`,
+    FIND_ALL: '/users/find-all',
+    FIND_ONE: (id: string) => `/users/find-one/${id}`,
+    REGISTER: '/users/register',
+    UPDATE: (id: string) => `/users/update/${id}`,
+    DELETE: (id: string) => `/users/remove/${id}`,
+    CHANGE_PASSWORD: (id: string) => `/users/change-password/${id}`,
+    REQUEST_RESET_PASSWORD: '/users/request-reset-password',
+    RESET_PASSWORD: '/users/reset-password',
+    SET_DEACTIVATE: (id: string) => `/users/set-deactivate/${id}`,
+    SET_REACTIVATE: (id: string) => `/users/set-reactivate/${id}`,
   },
-  // 🚩 เพิ่มส่วนการจัดการบูธ (Table: booths)
+
+  // ========== BOOTH ==========
   BOOTH: {
-    LIST: '/booths',
-    DETAIL: (id: string) => `/booths/${id}`,
-    STATUS: '/booths/status', // สำหรับหน้า Grid 15 บูธ
-    ASSIGN: '/booths/assign', // สำหรับมอบหมายบูธให้พนักงาน
     CREATE: '/booths',
+    FIND_ALL: '/booths',
+    FIND_ONE: (id: string) => `/booths/${id}`,
+    SET_CURRENT_SHIFT: (id: string) => `/booths/${id}/set-current-shift`,
+    SET_DEACTIVE: (id: string) => `/booths/${id}/set-deactive`,
+    SET_REACTIVE: (id: string) => `/booths/${id}/set-reactive`,
     DELETE: (id: string) => `/booths/${id}`,
-    UPDATE_STATUS: (id: string) => `/booths/${id}/status`, // สำหรับหน้า Manage Booth  
-
+    FIND_BY_SHIFT: (shiftId: string) => `/booths/find-by-shift/${shiftId}`,
   },
 
-  // 🚩 เพิ่มส่วนการจัดการกะทำงาน (Table: shifts)
+  // ========== CURRENCIES ==========
+  CURRENCY: {
+    UPDATE: '/currencies/update',
+    GET_ALL: '/currencies',
+    GET_BY_ID: (id: string) => `/currencies/${id}`,
+    GET_BY_CODE: (code: string) => `/currencies/code/${code}`,
+    MANUAL_UPDATE: '/currencies/manual-update',
+    SET_MODE_MANUAL: '/currencies/set-mode-manual',
+    SET_MODE_AUTO: '/currencies/set-mode-auto',
+    SET_MODE_MANUAL_ALL: '/currencies/set-mode-manual-all',
+    SET_MODE_AUTO_ALL: '/currencies/set-mode-auto-all',
+  },
+
+  // ========== EXCHANGE RATES ==========
+  EXCHANGE_RATE: {
+    GET_ALL: '/exchange-rates',
+    CREATE: '/exchange-rates',
+    UPDATE: (id: string) => `/exchange-rates/${id}`,
+    DELETE: (id: string) => `/exchange-rates/${id}`,
+    BULK_UPDATE: '/exchange-rates/bulk-update',
+    SYNC_FORCE_ALL: '/exchange-rates/sync/force-all',
+  },
+
+  // ========== EXCLUSIVE EXCHANGE RATES ==========
+  EXCLUSIVE_EXCHANGE_RATE: {
+    UPDATE: (id: string) => `/exclusive-exchange-rates/${id}`,
+    SYNC_AND_CLAMP: '/exclusive-exchange-rates/sync-and-clamp',
+    PENDING_REVIEWS: '/exclusive-exchange-rates/pending-reviews',
+    GET_ALL: '/exclusive-exchange-rates',
+    GET_BY_ID: (id: string) => `/exclusive-exchange-rates/${id}`,
+    GET_BY_EXCHANGE_HOUSE: (exhId: string) => `/exclusive-exchange-rates/exchange-house/${exhId}`,
+    GET_BY_CURRENCY: (currencyId: string) => `/exclusive-exchange-rates/currency/${currencyId}`,
+  },
+
+  // ========== EXCHANGE TRANSACTIONS ==========
+  EXCHANGE_TRANSACTION: {
+    CREATE: '/exchange-transactions',
+    GET_BY_SHIFT: (shiftId: string) => `/exchange-transactions/shift/${shiftId}`,
+    GET_DETAIL: (id: string) => `/exchange-transactions/${id}`,
+    GET_MANY: '/exchange-transactions',
+    SET_PENDING: (id: string) => `/exchange-transactions/${id}/set-pending`,
+    SET_APPROVE: (id: string) => `/exchange-transactions/${id}/set-approve`,
+  },
+
+  // ========== SHIFTS ==========
   SHIFT: {
     OPEN: '/shifts/open',
-    CLOSE: '/shifts/close',
-    CURRENT: '/shifts/current',
-    REPORT: (id: number) => `/shifts/${id}/report`, // สำหรับรายงานส่งเวร
+    CLOSE: (id: string) => `/shifts/${id}/close`,
+    SET_TOTAL_EXCHANGE: (id: string) => `/shifts/${id}/set-total-exchange`,
+    SET_TOTAL_RECEIVE: (id: string) => `/shifts/${id}/set-total-receive`,
+    GET_ACTIVE_SHIFTS: '/shifts/active',
+    SUMMARIZE: (id: string) => `/shifts/${id}/summarize`,
+    GET_SUMMARY: (id: string) => `/shifts/${id}/summary`,
+    GET_ALL: '/shifts',
   },
 
-  // 🚩 เพิ่มส่วนธุรกรรม (Table: transactions & exchange_transactions)
-  TRANSACTION: {
-    // สำหรับหน้า Manage Transaction
-    EXCHANGE: '/transactions/exchange',
-    TRANSFER: '/transactions/transfer',
-    HISTORY: '/transactions/history',
-    AUDIT: '/transactions/audit', // สำหรับรายงานตรวจสอบ
-
-
-    // สำหรับหน้า Void Transaction
-    VOID_REQUEST: '/transactions/void-request', // สำหรับส่งคำขอ void transaction
-    VOID_LIST: '/transactions/void', // สำหรับดึงรายการ void transaction ทั้งหมด
-    VOID_DETAIL: (id: string) => `/transactions/void/${id}`, // สำหรับดึงข้อมูล void transaction รายตัว
-    VOID_APPROVE: (id: string) => `/transactions/void/${id}/approve`, // สำหรับอนุมัติ void transaction
-    VOID_DENY: (id: string) => `/transactions/void/${id}/deny`, // สำหรับปฏิเสธ void transaction
-
-
-    // สำหรับหน้า Record Trading
-    RECORD: '/transactions/record',
-    PENDING: '/transactions/pending',
-    UPDATE_STATUS: '/transactions/update-status', // สำหรับอัพเดตสถานะ transaction
-
-
-    // สำหรับหน้า Transaction transfer
-    TRANSFER_CREATE: {
-        BOOTH_TO_BOOTH: '/transactions/transfer/booth-to-booth',
-        BOOTH_TO_BANK: '/transactions/transfer/booth-to-bank',
-        BANK_TO_BOOTH: '/transactions/transfer/bank-to-booth',
-    },
-    TRANSFER_HISTORY: '/transactions/transfer/history',
-    TRANSFER_CANCEL: (id: string) => `/transactions/transfer/cancel/${id}`, // สำหรับยกเลิกการโอนเงิน
-    TRANSFER_LIST: '/transactions/transfer/list', // สำหรับดึงรายการโอนเงินทั้งหมด
-    TRANSFER_DETAIL: (id: string) => `/transactions/transfer/${id}`, // สำหรับดึงข้อมูลการโอนเงินรายตัว
-    TRANSFER_DETAILS_BOOTH: (id: string) => `/transactions/transfer/booth/${id}`, // สำหรับดึงข้อมูลการโอนเงินที่เกี่ยวข้องกับบูธรายตัว
-
-    
-
+  // ========== CUSTOMERS ==========
+  CUSTOMER: {
+    GET_IMAGE: (id: string) => `/customers/${id}/image`,
   },
 
-  // 🚩 เพิ่มส่วนข้อมูลลูกค้าและเรทเงิน (Table: customers & exchange_rates)
-  CURRENCY: {
-    RATES: '/currencies/rates',
-    EXCLUSIVE: '/currencies/exclusive-rates',
-  }
-  // เพิ่ม endpoints อื่นๆ ตามที่ต้องการ
+  // ========== TRANSFER TRANSACTIONS ==========
+  TRANSFER_TRANSACTION: {
+    BOOTH_TO_BOOTH_C2: '/transfer-transactions/booth-to-booth-c2',
+    BOOTH_TO_BOOTH_C1: '/transfer-transactions/booth-to-booth-c1',
+    CUSTOM_TO_BOOTH_IN: '/transfer-transactions/custom-to-booth-in',
+    CUSTOM_TO_BOOTH_OUT: '/transfer-transactions/custom-to-booth-out',
+    GET_ALL: '/transfer-transactions',
+    GET_BY_ID: (id: string) => `/transfer-transactions/${id}`,
+    GET_BY_BOOTH: (boothId: string) => `/transfer-transactions/booth/${boothId}`,
+    GET_BY_SHIFT: (shiftId: string) => `/transfer-transactions/shift/${shiftId}`,
+    GET_BY_DATE_RANGE: '/transfer-transactions/date-range',
+    CANCEL: (id: string) => `/transfer-transactions/${id}/cancel`,
+    FIRST_SHIFT_CASH_COUNT: '/transfer-transactions/first-shift-cash-count',
+  },
+
+  // ========== TRANSACTION RECORDS ==========
+  TRANSACTION_RECORD: {
+    EXCHANGE: '/transaction-records/exchange',
+    TRANSFER: '/transaction-records/transfer',
+    VOID: '/transaction-records/void',
+  },
+
+  // ========== TRANSACTION VOID ==========
+  TRANSACTION_VOID: {
+    REQUEST: '/transaction-void/request',
+    GET_ALL: '/transaction-void',
+    GET_BY_ID: (id: string) => `/transaction-void/${id}`,
+    APPROVE: (id: string) => `/transaction-void/${id}/approve`,
+    DENY: (id: string) => `/transaction-void/${id}/deny`,
+  },
+
+  // ========== LOGS ==========
+  LOG: {
+    GET_ALL: '/logs',
+    GET_BY_DATE_RANGE: '/logs/date-range',
+  },
 } as const;
 
 export const STORAGE_KEYS = {
-  // ... (TOKEN, USER เดิม)
-  SHIFT_ID: 'currentShiftId', // สำหรับเก็บ ID กะที่กำลังทำงาน
-  BOOTH_ID: 'activeBoothId',  // บูธที่เลือกไว้ในหน้า Manage Booth
-  THEME: 'app-theme',         // สำหรับเก็บสถานะ Dark Mode
-  TOKEN: 'authToken', // สำหรับเก็บ JWT Token
-  REFRESH_TOKEN: 'refreshToken', // สำหรับเก็บ refresh token (ถ้ามี)
+  // Auth
+  TOKEN: 'authToken',
+  REFRESH_TOKEN: 'refreshToken',
+  USER: 'user',
+  
+  // Session
+  SHIFT_ID: 'currentShiftId',
+  BOOTH_ID: 'activeBoothId',
+  EXCHANGE_HOUSE_ID: 'exchangeHouseId',
+  
+  // UI
+  THEME: 'app-theme',
+  LANGUAGE: 'app-language',
 } as const;
 
 export const HTTP_STATUS = {
+  OK: 200,
+  CREATED: 201,
+  BAD_REQUEST: 400,
   UNAUTHORIZED: 401,
   FORBIDDEN: 403,
   NOT_FOUND: 404,
+  CONFLICT: 409,
+  UNPROCESSABLE_ENTITY: 422,
   SERVER_ERROR: 500,
+  SERVICE_UNAVAILABLE: 503,
 } as const;
 
-// เพิ่มเติมส่วนจัดการ Error Message (Optional)
 export const API_ERRORS = {
   SHIFT_ALREADY_OPEN: 'USER_HAS_ACTIVE_SHIFT',
   BOOTH_OCCUPIED: 'BOOTH_ALREADY_IN_USE',
+  INSUFFICIENT_BALANCE: 'INSUFFICIENT_BALANCE',
+  INVALID_TRANSACTION: 'INVALID_TRANSACTION',
+  UNAUTHORIZED_ACCESS: 'UNAUTHORIZED_ACCESS',
+  RESOURCE_NOT_FOUND: 'RESOURCE_NOT_FOUND',
+  INVALID_REQUEST: 'INVALID_REQUEST',
 } as const;
 

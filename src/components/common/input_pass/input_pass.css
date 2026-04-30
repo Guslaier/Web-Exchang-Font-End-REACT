@@ -1,0 +1,27 @@
+.pass-input {
+  padding-right: 45px !important; /* เว้นที่ให้ไอคอนตา */
+}
+
+.password-wrapper {
+  width: 100%;
+}
+.toggle-password-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #94a3b8;
+}
+.toggle-password div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.toggle-password svg {
+  width: 20px;
+  aspect-ratio: 1/1;
+}

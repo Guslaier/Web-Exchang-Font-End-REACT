@@ -4,20 +4,22 @@ import { Outlet } from 'react-router-dom'
 import { storage } from './utils/storage'
 import type { UserRole } from './types/entities.ts';
 import { useState } from 'react';
+import type { UserDatas } from './services/User.service.ts';
 function App() {
   
-  const [role] = useState<UserRole>(storage.get<UserRole>('userRole') || 'STAFF'); // ดึง role จาก Storage หรือกำหนดเป็น 'STAFF' เป็นค่าเริ่มต้น
+  const [role] = useState<UserRole>(storage.get<UserRole>('userRole') || 'EMPLOYEE'); 
+  const [userName] = useState<string>(storage.get<object>('userInfo') ? (storage.get<object>('userInfo') as UserDatas).username : ''); 
+  // ดึง role และ userName จาก Storage หรือกำหนดค่าเริ่มต้น
   return (
-    <div className="container">
+    <div className="M-container">
       {/* 1. Sidebar ด้านซ้าย (Navbar ของคุณ) */}
-      <aside>
-        {/* ส่ง role จาก state ไปยัง Navbar */}
-        <Navbar role={role} />
-      </aside>
+        {/* ส่ง role และ userName จาก state ไปยัง Navbar */}
+        <Navbar role={role} userName={userName} />
+     
 
       {/* 2. ส่วนเนื้อหาด้านขวา */}
       <main className="content">
-        <Outlet /> 
+        <Outlet />
       </main>
     </div>
   )

@@ -1,0 +1,80 @@
+.container {
+  display: flex;
+  flex-direction: column;
+}
+.header{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: calc(var(--spacing)*10);
+}
+
+.h-l{
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+}
+
+.main-add{
+  width: calc(var(--font-size-base) * 10);
+  height: calc(var(--font-size-base) *3);
+}
+
+.role{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 15px;
+  font-weight: 300;
+  font-size: calc(var(--font-size-base)*0.9);
+  padding: calc(var(--spacing) * 1) calc(var(--spacing) * 1);
+}
+
+.role.r-ADMIN{
+  background-color: var(--role-admin);
+  color: var(--text-role-admin);
+}
+.role.r-MANAGER{
+  background-color: var(--role-manager);
+  color: var(--text-role-manager);
+
+}
+.role.r-EMPLOYEE{
+  background-color: var(--role-employee);
+  color: var(--text-role-employee);
+}
+
+.role.r-UNKNOWN{
+  background-color: var(--role-unknown);
+  color: var(--text-role-unknown);
+}
+.actions-btn{
+  border: none;
+  cursor: pointer;
+  width: calc(var(--font-size-base) * 1.6);
+  aspect-ratio: 1/1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: none;
+}
+.actions-btn .nav-icon-svg{
+  width: 100%;
+  height: 100%;
+}
+
+.actions-group{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: calc(var(--spacing) * 2);
+}
+
+
+.actions-btn.delete .nav-icon-svg{
+  color: var(--btn-delete);
+}
+.actions-btn.edit .nav-icon-svg{
+  color: var(--btn-edit);
+}

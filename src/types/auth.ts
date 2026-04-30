@@ -9,17 +9,18 @@ import type { UserData,UserRole } from './entities'; // Import จาก Entity 
  * ข้อมูลที่ได้รับหลังจาก Login สำเร็จ 
  */
 
-export interface AuthResponse {
-  accessToken: string;
-  user: Omit<UserData, "passwordHash" | "updatedAt"> & {}; // ข้อมูลพื้นฐานจาก Table users
-}
 
+export class AuthResponse {
+  access_token!: string; // ✅ ใส่ ! เพื่อบอกว่าจะมีค่าแน่นอน
+  user!: Omit<UserData, "passwordHash"> & {};
+  
+}
 /**
  * โครงสร้างข้อมูลสำหรับหน้า Login
  */
-export interface LoginCredentials {
-  email: string; //
-  password: string; //
+export class LoginCredentials implements Pick<UserData, "email"> {
+  email!: string; //
+  password!: string; //
 }
 
 /**

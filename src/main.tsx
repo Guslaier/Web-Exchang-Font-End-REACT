@@ -11,9 +11,17 @@ import MainGuard from "./้hooks/Guard.tsx";
 import { Path } from "./config/path.Config.ts";
 import LogoutAction from "./components/common/auth/LogoutAction.tsx";
 import Login from "./pages/Login/Login.tsx";
+import UserManagement from "./pages/User/UserManagement.tsx";
+import ResetPassword from "./pages/Reset_Password/Reset_Password.tsx";
+import Profile from "./pages/Profile/Profile.tsx";
 
 const router = createBrowserRouter([
   {
+            path: Path.RESET_PASSWORD,
+            element: <ResetPassword />,
+
+  },{
+    
     // 🚩 ชั้นนอกสุด: หน้าที่ต้อง Login เท่านั้น (ทั้ง Admin และ Staff)
     element: <MainGuard />, 
     children: [
@@ -30,16 +38,27 @@ const router = createBrowserRouter([
             path: Path.LOGOUT_CLOSESHIFT,
             element: <LogoutAction />,
           },
+          {
+            path: Path.PROFILE,
+            element: <Profile />, 
+          },
+          
           
           // 🚩 ชั้นใน: หน้าที่ต้องเป็น ADMIN เท่านั้น (เช่น จัดการ User หรือดู Transaction พิเศษ)
           {
-            element: <MainGuard allowedRoles={["MANAGER"]} />,
+            element: <MainGuard allowedRoles={["ADMIN","MANAGER"]} />,
             children: [
               // { path: "manage-user", element: <ManageUser /> }, // ตัวอย่างหน้า Admin
                 {
                   path: Path.MANAGE_TRANSACTION, // ใช้แค่ชื่อ path ไม่ต้องใส่ / ข้างหน้าใน children
                   element: <div>Manage Transaction (Admin Only)</div>,
                 },
+                {
+                  path: Path.MANAGE_USER,
+                  element: <UserManagement />, // ตัวอย่างหน้า User Management
+                },
+                {
+                }
             ]
           },
 
