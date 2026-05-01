@@ -2,7 +2,12 @@
   margin: 1rem 0;
 }
 .border {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
   padding: 0.5rem;
+  padding-left: calc(0.8rem + 20px);
   border: 1px solid #ccc;
   border-radius: var(--border-radius);
   width: 300px;
@@ -13,4 +18,29 @@
   outline: none;
   border-color: var(--primary-color);
   box-shadow: 0 0 5px var(--primary-color);
+}
+
+.search-container div {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height:100%;
+  left: 0.29rem;
+
+
+}
+.search-icon svg {
+  width: 20px;
+  aspect-ratio: 1/1;
+}
+
+
+
+
+.search-input {
+  flex: 1;
+  border: none;
+  outline: none;
+  font-size: 1.2rem;
 }

@@ -7,6 +7,7 @@ import { storage } from "../../utils/storage";
 import Swal from "sweetalert2";
 import { authService } from "../../services/auth.service";
 import InputPass from "../../components/common/input_pass/input_pass";
+import { formatThaiDate } from "../../utils/fomat";
 
 
 export default function Profile() {
@@ -70,34 +71,53 @@ export default function Profile() {
 
       <div className="profile-card">
         <div className="profile-info">
-          <div className="info-row">
-            <span className="label">Username:</span>
-            <span className="value">{userData?.username || "N/A"}</span>
-          </div>
-          <div className="info-row">
-            <span className="label">Email:</span>
-            <span className="value">{userData?.email || "N/A"}</span>
-          </div>
-          <div className="info-row">
-            <span className="label">Phone Number:</span>
-            <span className="value">{userData?.phoneNumber || "N/A"}</span>
-          </div>
-          <div className="info-row">
-            <span className="label">Role:</span>
-            <span className="value">{userData?.role || "N/A"}</span>
-          </div>
-          <div className="info-row">
-            <span className="label">Status:</span>
-            <span className="value">{userData?.isActive ? "Active" : "Inactive"}</span>
-          </div>
-          <div className="info-row">
-            <span className="label">Created At:</span>
-            <span className="value">{userData ? new Date(userData.createdAt).toLocaleDateString() : "N/A"}</span>
-          </div>
-          <div className="info-row">
-            <span className="label">Updated At:</span>
-            <span className="value">{userData ? new Date(userData.updatedAt).toLocaleDateString() : "N/A"}</span>
-          </div>
+          <h2 className="modal-title">Profile Information</h2>
+          <div className="modal-body">
+              <div className="modal-field">
+                <label className="modal-label">Username : </label>
+                <span className="value">
+                  {userData?.username || "N/A"}
+                </span>
+              </div>
+        
+
+              <div className="modal-field">
+                <label className="modal-label">Email : </label>
+                <span className="value">
+                  {userData?.email || "N/A"}
+                </span>
+              </div>
+              
+              <div className="modal-field">
+                <label className="modal-label">Phone Number : </label>
+                <span className="value">
+                  {userData?.phoneNumber || "N/A"}
+                </span>
+              </div>
+              
+              <div className="modal-field">
+                <label className="modal-label">Role : </label>
+                <span className="value">
+                  {userData?.role || "N/A"}
+                </span>
+              </div>
+
+              <div className="modal-field">
+                <label className="modal-label">Status : </label>
+                <span className="value">
+                  {userData?.isActive ? "Active" : "Inactive"}
+                </span>
+              </div>
+              
+              <div className="modal-field">
+                <label className="modal-label">Created At : </label>
+                <span className="value">{userData?.createdAt ? formatThaiDate(userData.createdAt) : "N/A"}</span>
+              </div>
+              <div className="modal-field">
+                <label className="modal-label">Updated At : </label>
+                <span className="value">{userData?.updatedAt ? formatThaiDate(userData.updatedAt) : "N/A"}</span>
+              </div>
+            </div>
         </div>
       </div>  
       

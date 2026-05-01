@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Button from "../../components/common/Buttom/Buttom";
-import { userService } from "../../services/User.service";
+import { UserDatas, userService } from "../../services/User.service";
 import type { UserData, UserRole } from "../../types/entities";
 import SwitchButton_User from "../../components/common/swicth-BT-User/swicth-BT-User";
 import "./UserManagement.css";
@@ -9,6 +9,9 @@ import Swal from "sweetalert2";
 import { ReactSVG } from "react-svg";
 import editIcon from "../../assets/svg/edit.svg";
 import deleteIcon from "../../assets/svg/delete.svg";
+import Search from "../../components/common/Search/Search";
+import viewIcon from "../../assets/svg/view-list-svgrepo-com.svg";
+import { formatThaiDate } from "../../utils/fomat";
 
 export default function UserManagement() {
   const [users, setUsers] = useState<UserData[]>([]); // สมมติว่าเรามีข้อมูลผู้ใช้ในรูปแบบนี้
@@ -26,9 +29,10 @@ export default function UserManagement() {
     fetchUsers();
   }, []);
 
-  
+  const [searchQuery, setSearchQuery] = useState("");
   const [showAddModal, setShowAddModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
+  const [viewUserModal, setViewUserModal] = useState(false);
   const [newUser, setNewUser] = useState({
     email: "",
     username: "",
@@ -42,7 +46,12 @@ export default function UserManagement() {
     phoneNumber: "",
     role: "EMPLOYEE",
   });
+  const [selectedUser, setSelectedUser] = useState<UserDatas | null>(null);
 
+  const viewUser = (user: UserDatas) => {
+    setSelectedUser(user);
+    setViewUserModal(true);
+  }
   const handleAdd = async () => {
     // 1. ตรวจสอบข้อมูล (Validation) ด้วย Toast หรือ Alert ของ SWAL
     if (!newUser.email || !newUser.username || !newUser.phoneNumber) {
@@ -257,6 +266,15 @@ export default function UserManagement() {
     }
   };
 
+  const filteredUsers = users.filter((u) => {
+    const searchTerm = searchQuery.toLowerCase();
+    return (
+      u.username.toLowerCase().includes(searchTerm) ||
+      u.email.toLowerCase().includes(searchTerm) ||
+      u.phoneNumber.toLowerCase().includes(searchTerm) ||
+      u.role.toLowerCase().includes(searchTerm)
+    );
+  });
   return (
     <div className="container">
       <div className="header">
@@ -272,6 +290,11 @@ export default function UserManagement() {
         />
       </div>
 
+      <Search
+        onSearch={(query) => setSearchQuery(query)}
+        placeholder="Search users..."
+        id="user-management"
+      />
       <div className="table-container">
         <table className="table">
           <thead className="bg-gray-100">
@@ -297,14 +320,24 @@ export default function UserManagement() {
             </tr>
           </thead>
           <tbody>
-            {users
+            {filteredUsers
               .sort((a, b) => a.username.localeCompare(b.username))
               .map((u) => (
                 <tr
                   key={u.id}
                   className="border-t border-gray-100 hover:bg-gray-50"
                 >
-                  <td className="py-4 px-6 text-gray-900">{u.username}</td>
+                  <td className="py-4 px-6 text-gray-900" style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                    <span>{u.username}</span>
+                    <span>
+                      <button
+                        className="actions-btn view"
+                        onClick={() => viewUser(u)}
+                      >
+                        <ReactSVG src={viewIcon} className="nav-icon-svg" />
+                      </button>
+                    </span>
+                  </td>
                   <td className="py-4 px-6 text-gray-600">{u.email}</td>
                   <td className="py-4 px-6 text-gray-600">{u.phoneNumber}</td>
                   <td className="py-4 px-6 text-center">
@@ -510,8 +543,9 @@ export default function UserManagement() {
                     }).then(async (result) => {
                       if (result.isConfirmed) {
                         try {
-
-                          const response = await userService.resetPassword(editingUserId.id);
+                          const response = await userService.resetPassword(
+                            editingUserId.id,
+                          );
                           Swal.fire({
                             title: "Token for Password Reset Successfully!",
                             icon: "success",
@@ -525,10 +559,7 @@ export default function UserManagement() {
                             confirmButtonText: "Close",
                             showConfirmButton: true,
                             width: "500px", // ปรับขนาดความกว้างตามความเหมาะสม
-
-                          }
-
-                          );
+                          });
                         } catch (error) {
                           const err = error as any;
                           await Swal.fire({
@@ -539,9 +570,7 @@ export default function UserManagement() {
                             icon: "error",
                             confirmButtonColor: "var(--btn-submit)",
                           });
-
-                   
-                        } 
+                        }
                       }
                     });
                   }}
@@ -567,6 +596,71 @@ export default function UserManagement() {
           </div>
         </div>
       )}
+      {viewUserModal && (
+        <div className="modal-overlay">
+          <div className="modal-content">
+            <h2 className="modal-title">View User</h2>
+
+            <div className="modal-body">
+              <div className="modal-field">
+                <label className="modal-label">Username : </label>
+                <span className="value">
+                  {selectedUser?.username || "N/A"}
+                </span>
+              </div>
+        
+
+              <div className="modal-field">
+                <label className="modal-label">Email : </label>
+                <span className="value">
+                  {selectedUser?.email || "N/A"}
+                </span>
+              </div>
+              
+              <div className="modal-field">
+                <label className="modal-label">Phone Number : </label>
+                <span className="value">
+                  {selectedUser?.phoneNumber || "N/A"}
+                </span>
+              </div>
+              
+              <div className="modal-field">
+                <label className="modal-label">Role : </label>
+                <span className="value">
+                  {selectedUser?.role || "N/A"}
+                </span>
+              </div>
+
+              <div className="modal-field">
+                <label className="modal-label">Status : </label>
+                <span className="value">
+                  {selectedUser?.isActive ? "Active" : "Inactive"}
+                </span>
+              </div>
+              
+              <div className="modal-field">
+                <label className="modal-label">Created At : </label>
+                <span className="value">{selectedUser?.createdAt ? formatThaiDate(selectedUser.createdAt) : "N/A"}</span>
+              </div>
+              <div className="modal-field">
+                <label className="modal-label">Updated At : </label>
+                <span className="value">{selectedUser?.updatedAt ? formatThaiDate(selectedUser.updatedAt) : "N/A"}</span>
+              </div>
+            </div>
+
+
+
+
+            <div className="modal-footer">
+              <Button
+                label="Close"
+                variant="cancel"
+                onClick={() => setViewUserModal(false)}
+                className="flex-1"
+              />
+            </div>
+          </div>
+        </div>)}
     </div>
   );
 }
